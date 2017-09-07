@@ -197,6 +197,8 @@ program test
 #if defined(TEST_HERMITIAN_MULTIPLY)
    do_test_hermitian_multiply = .true.
 #endif
+
+   status = 0
    if (elpa_init(CURRENT_API_VERSION) /= ELPA_OK) then
      print *, "ELPA API version not supported"
      stop 1
@@ -402,9 +404,48 @@ program test
 #endif
 #endif /* TEST_MATRIX_TOEPLITZ */
 
-#if defined(TEST_MATRIX_FRANK)
-   call prepare_matrix_frank(na, a, z, as, nblk, np_rows, np_cols, my_prow, my_pcol)
+
+#if defined(TEST_MATRIX_FRANK) && !defined(TEST_SOLVE_TRIDIAGONAL) && !defined(TEST_CHOLESKY)
+   ! the random matrix can be used in allmost all tests; but for some no
+   ! correctness checks have been implemented; do not allow these
+   ! combinations
+   ! FRANK + TEST_SOLVE_TRIDIAGONAL: we need a TOEPLITZ MATRIX
+   ! FRANK + TEST_CHOLESKY: no correctness check yet implemented
+
+   ! We also have to take care of special case in TEST_EIGENVECTORS
+#if !defined(TEST_EIGENVECTORS)
+    call prepare_matrix_frank(na, a, z, as, nblk, np_rows, np_cols, my_prow, my_pcol)
+
+    do_test_analytic_eigenvalues = .false.
+    do_test_analytic_eigenvalues_eigenvectors = .false.
+    do_test_frank_eigenvalues = .true.
+    do_test_toeplitz_eigenvalues = .false.
+
+#else /* TEST_EIGENVECTORS */
+
+    if (nev .ge. 1) then
+     call prepare_matrix_frank(na, a, z, as, nblk, np_rows, np_cols, my_prow, my_pcol)
+
+    do_test_analytic_eigenvalues = .false.
+    do_test_analytic_eigenvalues_eigenvectors = .false.
+    do_test_frank_eigenvalues = .false.
+    do_test_toeplitz_eigenvalues = .false.
+    do_test_numeric_residual = .true.
+   else
+    do_test_analytic_eigenvalues = .false.
+    do_test_analytic_eigenvalues_eigenvectors = .false.
+    do_test_frank_eigenvalues = .true.
+    do_test_toeplitz_eigenvalues = .false.
+    do_test_numeric_residual = .false.
+
+   endif
+
+#endif /* TEST_EIGENVECTORS */
+#endif /* (TEST_MATRIX_RANDOM) */
+#if defined(TEST_MATRIX_RANDOM) && (defined(TEST_SOLVE_TRIDIAGONAL) || defined(TEST_CHOLESKY) || defined(TEST_EIGENVALUES))
+#error "Random matrix is not allowed in this configuration"
 #endif
+
 
 #ifdef TEST_HERMITIAN_MULTIPLY
 #ifdef TEST_REAL
@@ -579,14 +620,19 @@ program test
        status = check_correctness_analytic(na, nev, ev, z, nblk, myid, np_rows, np_cols, my_prow, my_pcol, check_all_evals, .true.)
        call check_status(status, myid)
      endif
-
      if(do_test_numeric_residual) then
        status = check_correctness_evp_numeric_residuals(na, nev, as, z, ev, sc_desc, nblk, myid, np_rows,np_cols, my_prow, my_pcol)
        call check_status(status, myid)
      endif
 
+     if(do_test_frank_eigenvalues) then
+              print *,"do_test_frank_eigenvalues"
+!       status = check_correctness_evp_numeric_residuals(na, nev, as, z, ev, sc_desc, nblk, myid, np_rows,np_cols, my_prow, my_pcol)
+       call check_status(status, myid)
+     endif
+
      if (do_test_toeplitz_eigenvalues) then
-#if defined(TEST_EIGENVALUES) || defined(TEST_SOLVE_TRIDIAGONAL) 
+#if defined(TEST_EIGENVALUES) || defined(TEST_SOLVE_TRIDIAGONAL)
        status = check_correctness_eigenvalues_toeplitz(na, diagonalElement, &
          subdiagonalElement, ev, z, myid)
        call check_status(status, myid)
@@ -624,12 +670,10 @@ program test
    deallocate(as)
    deallocate(z)
    deallocate(ev)
-
 #ifdef TEST_HERMITIAN_MULTIPLY
    deallocate(b)
    deallocate(c)
 #endif
-
 #if defined(TEST_EIGENVALUES) || defined(TEST_SOLVE_TRIDIAGONAL) || defined(TEST_EIGENVECTORS) || defined(TEST_QR_DECOMPOSITION) || defined(TEST_CHOLESKY)
    deallocate(d, ds)
    deallocate(sd, sds)
@@ -640,14 +684,12 @@ program test
    end do ! factors
    end do ! layouts
 #endif
-
    call elpa_uninit()
 
 #ifdef WITH_MPI
    call blacs_gridexit(my_blacs_ctxt)
    call mpi_finalize(mpierr)
 #endif
-
    call exit(status)
 
    contains

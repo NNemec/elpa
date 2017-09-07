@@ -24,6 +24,7 @@ matrix_flag = {
         "random" : "-DTEST_MATRIX_RANDOM",
         "analytic" : "-DTEST_MATRIX_ANALYTIC",
         "toeplitz" : "-DTEST_MATRIX_TOEPLITZ",
+        "frank" : "-DTEST_MATRIX_FRANK",
 }
 
 test_type_flag = {
@@ -49,7 +50,14 @@ for m, g, t, p, d, s, l in product(
                              sorted(solver_flag.keys()),
                              sorted(layout_flag.keys())):
 
+    # exclude some test combinations
+
+    # analytic tests only for "eigenvectors" and not on GPU
     if(m == "analytic" and (g == 1 or t != "eigenvectors")):
+        continue
+
+    # Frank tests only for "eigenvectors" and real case
+    if(m == "frank" and (t != "eigenvectors" or d !="real")):
         continue
 
     if(s in ["scalapack_all", "scalapack_part"]  and (g == 1 or t != "eigenvectors" or m != "analytic")):
@@ -116,11 +124,11 @@ for m, g, t, p, d, s, l in product(
                 raise Exception("Oh no!")
             endifs += 1
 
-        name = "test_{0}_{1}_{2}_{3}{4}{5}{6}{7}".format(
+        name = "test_{0}_{1}_{2}_{3}{4}_{5}{6}{7}".format(
                     d, p, t, s,
                     "" if kernel == "nokernel" else "_" + kernel,
                     "_gpu" if g else "",
-                    "_analytic" if m == "analytic" else "",
+                    m,
                     "_all_layouts" if l == "all_layouts" else "")
         print("noinst_PROGRAMS += " + name)
         print("check_SCRIPTS += " + name + ".sh")

@@ -192,17 +192,17 @@
 #if REALCASE == 1
       if (nev .ge. 2) then
 #ifdef DOUBLE_PRECISION_REAL
-        if (errmax .gt. 5e-12_rk8 .or. errmax .eq. 0.0_rk8) then
+        if (errmax .gt. 5e-11_rk8 .or. errmax .eq. 0.0_rk8) then
 #else
-        if (errmax .gt. 3e-3_rk4 .or. errmax .eq. 0.0_rk4) then
+        if (errmax .gt. 3e-2_rk4 .or. errmax .eq. 0.0_rk4) then
 #endif
           status = 1
         endif
       else
 #ifdef DOUBLE_PRECISION_REAL
-        if (errmax .gt. 5e-12_rk8) then
+        if (errmax .gt. 5e-11_rk8) then
 #else
-        if (errmax .gt. 3e-3_rk4) then
+        if (errmax .gt. 2e-2_rk4) then
 #endif
           status = 1
         endif
@@ -211,17 +211,17 @@
 #if COMPLEXCASE == 1
       if (nev .gt. 2) then
 #ifdef DOUBLE_PRECISION_COMPLEX
-        if (errmax .gt. 5e-12_rk8 .or. errmax .eq. 0.0_rk8) then
+        if (errmax .gt. 5e-11_rk8 .or. errmax .eq. 0.0_rk8) then
 #else
-        if (errmax .gt. 3e-3_rk4 .or. errmax .eq. 0.0_rk4) then
+        if (errmax .gt. 3e-2_rk4 .or. errmax .eq. 0.0_rk4) then
 #endif
           status =1
         endif
       else
 #ifdef DOUBLE_PRECISION_COMPLEX
-        if (errmax .gt. 5e-12_rk8) then
+        if (errmax .gt. 5e-11_rk8) then
 #else
-        if (errmax .gt. 3e-3_rk4) then
+        if (errmax .gt. 3e-2_rk4) then
 #endif
           status = 1
         endif
@@ -289,9 +289,9 @@
         endif
       else
 #ifdef DOUBLE_PRECISION_REAL
-        if (errmax .gt. 5e-12_rk8) then
+        if (errmax .gt. 5e-11_rk8) then
 #else
-        if (errmax .gt. 9e-4_rk4) then
+        if (errmax .gt. 9e-2_rk4) then
 #endif
           status = 1
         endif
@@ -308,9 +308,9 @@
         endif
       else
 #ifdef DOUBLE_PRECISION_COMPLEX
-        if (errmax .gt. 5e-12_rk8) then
+        if (errmax .gt. 5e-11_rk8) then
 #else
-        if (errmax .gt. 9e-4_rk4) then
+        if (errmax .gt. 9e-3_rk4) then
 #endif
           status = 1
         endif
