@@ -449,6 +449,7 @@ function check_correctness_evp_numeric_residuals_&
 #endif
        status = 1
        if (myid .eq. 0) then
+         print *,"Result of Toeplitz matrix test: "
          print *,"Eigenvalues differ from analytic solution: maxerr = ",maxerr
        endif
      endif
