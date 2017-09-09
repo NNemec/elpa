@@ -23,6 +23,7 @@ gpu_flag = {
 matrix_flag = {
         "random" : "-DTEST_MATRIX_RANDOM",
         "analytic" : "-DTEST_MATRIX_ANALYTIC",
+        "toeplitz" : "-DTEST_MATRIX_TOEPLITZ",
 }
 
 test_type_flag = {
@@ -60,7 +61,20 @@ for m, g, t, p, d, s, l in product(
     if (t == "cholesky" and (s == "2stage")):
         continue
 
+    if (t == "cholesky" and (m == "random")):
+        continue
+
+    if (t == "eigenvalues" and (m == "random")):
+        continue
+
+    if (t == "solve_tridiagonal" and (m == "random")):
+        continue
+
+
     if (t == "hermitian_multiply" and (s == "2stage")):
+        continue
+
+    if (t == "hermitian_multiply" and (m == "toeplitz")):
         continue
 
     if (t == "qr" and (s == "1stage" or d == "complex")):
