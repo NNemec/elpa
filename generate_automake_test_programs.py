@@ -27,13 +27,17 @@ matrix_flag = {
         "frank" : "-DTEST_MATRIX_FRANK",
 }
 
+qr_flag = {
+        0 : "-DTEST_QR_DECOMPOSITION=0",
+        1 : "-DTEST_QR_DECOMPOSITION=1",
+}
+
 test_type_flag = {
         "eigenvectors" : "-DTEST_EIGENVECTORS",
         "eigenvalues"  : "-DTEST_EIGENVALUES",
         "solve_tridiagonal"  : "-DTEST_SOLVE_TRIDIAGONAL",
         "cholesky"  : "-DTEST_CHOLESKY",
         "hermitian_multiply"  : "-DTEST_HERMITIAN_MULTIPLY",
-        "qr"  : "-DTEST_QR_DECOMPOSITION",
 }
 
 layout_flag = {
@@ -41,9 +45,10 @@ layout_flag = {
         "square" : ""
 }
 
-for m, g, t, p, d, s, l in product(
+for m, g, q, t, p, d, s, l in product(
                              sorted(matrix_flag.keys()),
                              sorted(gpu_flag.keys()),
+                             sorted(qr_flag.keys()),
                              sorted(test_type_flag.keys()),
                              sorted(prec_flag.keys()),
                              sorted(domain_flag.keys()),
@@ -56,28 +61,24 @@ for m, g, t, p, d, s, l in product(
     if(m == "analytic" and (g == 1 or t != "eigenvectors")):
         continue
 
-    # Frank tests only for "eigenvectors" and real case
-    if(m == "frank" and (t != "eigenvectors" or d !="real")):
+    # Frank tests only for "eigenvectors" and eigenvalues and real double precision case
+    if(m == "frank" and ((t != "eigenvectors"  or t != "eigenvalues") and (d !="real" or p !="double"))):
         continue
 
     if(s in ["scalapack_all", "scalapack_part"]  and (g == 1 or t != "eigenvectors" or m != "analytic")):
         continue
 
-    if (t == "solve_tridiagonal" and (s == "2stage" or d == "complex")):
+    # solve tridiagonal only for real toeplitz matrix in 1stage
+    if (t == "solve_tridiagonal" and (s != "1stage" or d !="real" or m != "toeplitz")):
         continue
 
-    if (t == "cholesky" and (s == "2stage")):
-        continue
 
-    if (t == "cholesky" and (m == "random")):
+    # cholesky tests only 1stage and teoplitz matrix
+    if (t == "cholesky" and (m != "toeplitz" or s == "2stage")):
         continue
 
     if (t == "eigenvalues" and (m == "random")):
         continue
-
-    if (t == "solve_tridiagonal" and (m == "random")):
-        continue
-
 
     if (t == "hermitian_multiply" and (s == "2stage")):
         continue
@@ -85,7 +86,8 @@ for m, g, t, p, d, s, l in product(
     if (t == "hermitian_multiply" and (m == "toeplitz")):
         continue
 
-    if (t == "qr" and (s == "1stage" or d == "complex")):
+    # qr only for 2stage real
+    if (q == 1 and (s != "2stage" or d != "real" or t != "eigenvectors" or g == 1 or m != "random")):
         continue
 
     for kernel in ["all_kernels", "default_kernel"] if s == "2stage" else ["nokernel"]:
@@ -124,10 +126,11 @@ for m, g, t, p, d, s, l in product(
                 raise Exception("Oh no!")
             endifs += 1
 
-        name = "test_{0}_{1}_{2}_{3}{4}_{5}{6}{7}".format(
+        name = "test_{0}_{1}_{2}_{3}{4}_{5}{6}_{7}{8}".format(
                     d, p, t, s,
                     "" if kernel == "nokernel" else "_" + kernel,
-                    "_gpu" if g else "",
+                    "gpu_" if g else "",
+                    "qr" if q else "",
                     m,
                     "_all_layouts" if l == "all_layouts" else "")
         print("noinst_PROGRAMS += " + name)
@@ -142,6 +145,7 @@ for m, g, t, p, d, s, l in product(
             test_type_flag[t],
             solver_flag[s],
             gpu_flag[g],
+            qr_flag[q],
             matrix_flag[m]] + extra_flags))
 
         print("endif\n" * endifs)
