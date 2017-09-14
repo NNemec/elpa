@@ -443,6 +443,18 @@ if test x"${with_mpi}" = x"yes" ; then
 fi
 AC_LANG_POP([Fortran])
 
+AC_ARG_ENABLE([K-computer],
+              AS_HELP_STRING([--enable-K-computer],
+                             [enable builds on K-Computer, default no.]),
+              [],
+              [enable_kcomputer=no])
+AC_MSG_RESULT([${enable_kcomputer}])
+AM_CONDITIONAL([BUILD_KCOMPUTER],[test x"$enable_kcomputer" = x"yes"])
+if test x"${enable_kcomputer}" = x"yes"; then
+        AC_DEFINE([WITH_KCOMPUTER], [1], [build for K-Computer])
+fi
+
+
 dnl Assemble the list of kernels to build
 m4_pattern_forbid([elpa_m4])
 
