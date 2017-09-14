@@ -451,7 +451,7 @@ AC_ARG_ENABLE([K-computer],
 AC_MSG_RESULT([${enable_kcomputer}])
 AM_CONDITIONAL([BUILD_KCOMPUTER],[test x"$enable_kcomputer" = x"yes"])
 if test x"${enable_kcomputer}" = x"yes"; then
-        AC_DEFINE([WITH_KCOMPUTER], [1], [build for K-Computer])
+        AC_DEFINE([BUILD_KCOMPUTER], [1], [build for K-Computer])
 fi
 
 
