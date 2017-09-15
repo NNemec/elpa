@@ -1051,4 +1051,14 @@ m4_foreach_w([elpa_m4_kind],[real complex],[
 #echo "*  It mainly contains bugfixes to ELPA 2017.05.001                    *"
 #echo "***********************************************************************"
 #echo " "
-make -f $srcdir/generated_headers.am generated-headers top_srcdir="$srcdir"
+
+if test x"$BUILD_KCOMPUTER" = x"yes" ; then
+  echo " "
+  echo "Important message:"
+  echo "On K-computer (at the moment) the automatic create of the generated"
+  echo "headers does not work."
+  echo "call: make -f ../generated_headers.am generated-headers top_srcdir=.."
+  echo "BEFORE triggering the build with make!"
+else
+  make -f $srcdir/generated_headers.am generated-headers top_srcdir="$srcdir"
+fi
