@@ -126,14 +126,18 @@ for m, g, q, t, p, d, s, l in product(
                 raise Exception("Oh no!")
             endifs += 1
 
-        name = "test_{0}_{1}_{2}_{3}{4}_{5}{6}_{7}{8}".format(
+        name = "test_{0}_{1}_{2}_{3}{4}_{5}{6}{7}{8}".format(
                     d, p, t, s,
                     "" if kernel == "nokernel" else "_" + kernel,
                     "gpu_" if g else "",
-                    "qr" if q else "",
+                    "qr_" if q else "",
                     m,
                     "_all_layouts" if l == "all_layouts" else "")
+        print("if BUILD_KCOMPUTER")
+        print("bin_PROGRAMS += " + name)
+        print("else")
         print("noinst_PROGRAMS += " + name)
+        print("endif")
         print("check_SCRIPTS += " + name + ".sh")
         print(name + "_SOURCES = test/Fortran/test.F90")
         print(name + "_LDADD = $(test_program_ldadd)")
