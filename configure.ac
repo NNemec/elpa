@@ -443,18 +443,6 @@ if test x"${with_mpi}" = x"yes" ; then
 fi
 AC_LANG_POP([Fortran])
 
-AC_ARG_ENABLE([K-computer],
-              AS_HELP_STRING([--enable-K-computer],
-                             [enable builds on K-Computer, default no.]),
-              [],
-              [enable_kcomputer=no])
-AC_MSG_RESULT([${enable_kcomputer}])
-AM_CONDITIONAL([BUILD_KCOMPUTER],[test x"$enable_kcomputer" = x"yes"])
-if test x"${enable_kcomputer}" = x"yes"; then
-        AC_DEFINE([BUILD_KCOMPUTER], [1], [build for K-Computer])
-fi
-
-
 dnl Assemble the list of kernels to build
 m4_pattern_forbid([elpa_m4])
 
@@ -921,6 +909,27 @@ if test x"${USE_ASSUMED_SIZE}" = x"yes" ; then
   AC_DEFINE([USE_ASSUMED_SIZE],[1],[for performance reasons use assumed size Fortran arrays, even if not debuggable])
 fi
 
+enable_kcomputer=no
+AC_MSG_CHECKING(whether we build for K-computer)
+AC_ARG_ENABLE([K-computer],
+              AS_HELP_STRING([--enable-K-computer],
+                             [enable builds on K-Computer, default no.]),
+			     [if test x"$enableval"=x"yes"; then
+			        enable_kcomputer=yes
+		              else
+				enable_kcomputer=no
+			      fi],
+              [enable_kcomputer=no])
+AC_MSG_RESULT([${enable_kcomputer}])
+AM_CONDITIONAL([BUILD_KCOMPUTER],[test x"$enable_kcomputer" = x"yes"])
+if test x"${enable_kcomputer}" = x"yes"; then
+ AC_DEFINE([BUILD_KCOMPUTER], [1], [build for K-Computer])
+ FC_MODINC="-I"
+  if test x"${USE_ASSUMED_SIZE}" = x"yes" ; then
+    AC_MSG_ERROR(on K-computer you have to switch of assumed-size arrays!)
+  fi
+fi
+
 if test x"${want_single_precision}" = x"yes" ; then
   AC_DEFINE([WANT_SINGLE_PRECISION_REAL],[1],[build also single-precision for real calculation])
   AC_DEFINE([WANT_SINGLE_PRECISION_COMPLEX],[1],[build also single-precision for complex calculation])
@@ -1052,7 +1061,7 @@ m4_foreach_w([elpa_m4_kind],[real complex],[
 #echo "***********************************************************************"
 #echo " "
 
-if test x"$BUILD_KCOMPUTER" = x"yes" ; then
+if test x"$enable_kcomputer" = x"yes" ; then
   echo " "
   echo "Important message:"
   echo "On K-computer (at the moment) the automatic create of the generated"

@@ -43,6 +43,8 @@
 //    the original distribution, the GNU Lesser General Public License.
 //
 //    Authors: L. Huedepohl and A. Marek, MPCDF
+
+#include "config.h"
 #include <elpa/elpa.h>
 #include "elpa_index.h"
 
@@ -161,6 +163,9 @@ static const elpa_index_int_entry_t int_entries[] = {
 
 static const elpa_index_double_entry_t double_entries[] = {
         /* Empty for now */
+#ifdef BUILD_KCOMPUTER
+	NULL,
+#endif
 };
 
 void elpa_index_free(elpa_index_t index) {
