@@ -929,6 +929,22 @@ if test x"${enable_kcomputer}" = x"yes"; then
     AC_MSG_ERROR(on K-computer you have to switch of assumed-size arrays!)
   fi
 fi
+enable_fortran2008_features=yes
+AC_MSG_CHECKING(whether Fortran 2008 featues should be enabled)
+AC_ARG_ENABLE([Fortran2008-features],
+              AS_HELP_STRING([--enable-Fortran2008-features],
+                             [enables some Fortran 2008 features, default yes.]),
+			     [if test x"$enableval"=x"yes"; then
+			        enable_fortran2008_featuresr=yes
+		              else
+				enable_fortran2008_features=no
+			      fi],
+              [enable_fortran2008_features=yes])
+AC_MSG_RESULT([${enable_fortran2008_features}])
+AM_CONDITIONAL([USE_FORTRAN2008],[test x"$enable_fortran2008_features" = x"yes"])
+if test x"${enable_fortran2008_features}" = x"yes"; then
+ AC_DEFINE([USE_FORTRAN2008], [1], [use some Fortran 2008 features])
+fi
 
 if test x"${want_single_precision}" = x"yes" ; then
   AC_DEFINE([WANT_SINGLE_PRECISION_REAL],[1],[build also single-precision for real calculation])
