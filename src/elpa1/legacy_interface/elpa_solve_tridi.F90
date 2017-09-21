@@ -89,14 +89,14 @@
 
       obj => elpa_allocate()
 
-      call obj%set("na", na)
-      call obj%set("nev", nev)
-      call obj%set("local_nrows", ldq)
-      call obj%set("local_ncols", matrixCols)
-      call obj%set("nblk", nblk)
+      call obj%set("na", na,error)
+      call obj%set("nev", nev,error)
+      call obj%set("local_nrows", ldq,error)
+      call obj%set("local_ncols", matrixCols,error)
+      call obj%set("nblk", nblk,error)
 
-      call obj%set("mpi_comm_rows", mpi_comm_rows)
-      call obj%set("mpi_comm_cols", mpi_comm_cols)
+      call obj%set("mpi_comm_rows", mpi_comm_rows,error)
+      call obj%set("mpi_comm_cols", mpi_comm_cols,error)
 
       if (obj%setup() .ne. ELPA_OK) then
         print *, "Cannot setup ELPA instance"
@@ -105,7 +105,7 @@
       endif
 
       if (wantDebug) then
-        call obj%set("debug",1)
+        call obj%set("debug",1,error)
       endif
 
       call obj%solve_tridiagonal(d, e, q(1:ldq,1:matrixCols), error)

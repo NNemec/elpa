@@ -70,7 +70,7 @@ function elpa_solve_evp_&
                                                       mpi_comm_cols, mpi_comm_all
    real(kind=REAL_DATATYPE), intent(out)           :: ev(na)
 
-   integer(kind=c_int)                             :: my_prow, my_pcol, mpierr
+   integer(kind=c_int)                             :: my_prow, my_pcol, mpierr,error
 
 #if REALCASE == 1
 #ifdef USE_ASSUMED_SIZE
@@ -112,17 +112,17 @@ function elpa_solve_evp_&
 
    e => elpa_allocate()
 
-   call e%set("na", na)
-   call e%set("nev", nev)
-   call e%set("local_nrows", lda)
-   call e%set("local_ncols", matrixCols)
-   call e%set("nblk", nblk)
+   call e%set("na", na,error)
+   call e%set("nev", nev,error)
+   call e%set("local_nrows", lda,error)
+   call e%set("local_ncols", matrixCols,error)
+   call e%set("nblk", nblk,error)
 
-   call e%set("mpi_comm_parent", mpi_comm_all)
-   call e%set("mpi_comm_rows", mpi_comm_rows)
-   call e%set("mpi_comm_cols", mpi_comm_cols)
+   call e%set("mpi_comm_parent", mpi_comm_all,error)
+   call e%set("mpi_comm_rows", mpi_comm_rows,error)
+   call e%set("mpi_comm_cols", mpi_comm_cols,error)
 
-   call e%set("timings",1)
+   call e%set("timings",1,error)
 
    if (e%setup() .ne. ELPA_OK) then
      print *, "Cannot setup ELPA instance"
@@ -162,7 +162,7 @@ function elpa_solve_evp_&
      return
    endif
 
-   call e%set("timings", 1)
+   call e%set("timings", 1,error)
 
    call e%eigenvectors(a(1:lda,1:matrixCols), ev, q(1:ldq,1:matrixCols), successInternal)
 

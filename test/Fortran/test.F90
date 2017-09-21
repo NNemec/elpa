@@ -261,6 +261,7 @@ program test
    endif
 #endif /* TEST_QR_DECOMPOSITION */
 
+
    call set_up_blacsgrid(mpi_comm_world, np_rows, np_cols, layout, &
                          my_blacs_ctxt, my_prow, my_pcol)
 
@@ -495,13 +496,13 @@ program test
    call e%set("process_col", my_pcol, error)
    assert_elpa_ok(error)
 #endif
-   call e%set("timings",1)
+   call e%set("timings",1,error)
    assert_elpa_ok(e%setup())
 
 #ifdef TEST_SOLVER_1STAGE
-   call e%set("solver", ELPA_SOLVER_1STAGE)
+   call e%set("solver", ELPA_SOLVER_1STAGE,error)
 #else
-   call e%set("solver", ELPA_SOLVER_2STAGE)
+   call e%set("solver", ELPA_SOLVER_2STAGE,error)
 #endif
    assert_elpa_ok(error)
 
@@ -532,7 +533,7 @@ program test
        cycle
      endif
      ! actually used kernel might be different if forced via environment variables
-     call e%get(KERNEL_KEY, kernel)
+     call e%get(KERNEL_KEY, kernel, error)
 #endif
      if (myid == 0) then
        print *, elpa_int_value_to_string(KERNEL_KEY, kernel) // " kernel"

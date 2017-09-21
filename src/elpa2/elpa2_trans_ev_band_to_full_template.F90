@@ -143,14 +143,14 @@
                                                                    &PRECISION&
                                                                    &_&
                                                                    &MATH_DATATYPE
-      integer                                :: blocking_factor
+      integer                                :: blocking_factor, error
       call obj%timer%start("trans_ev_band_to_full_&
       &MATH_DATATYPE&
       &" // &
       &PRECISION_SUFFIX &
       )
 #ifdef BAND_TO_FULL_BLOCKING
-      call obj%get("blocking_in_band_to_full",blocking_factor)
+      call obj%get("blocking_in_band_to_full",blocking_factor,error)
       print *,"Blocking factor: ", blocking_factor
 #endif
       call obj%timer%start("mpi_communication")
