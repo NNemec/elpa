@@ -909,6 +909,23 @@ if test x"${USE_ASSUMED_SIZE}" = x"yes" ; then
   AC_DEFINE([USE_ASSUMED_SIZE],[1],[for performance reasons use assumed size Fortran arrays, even if not debuggable])
 fi
 
+enable_fortran2008_features=yes
+AC_MSG_CHECKING(whether Fortran 2008 featues should be enabled)
+AC_ARG_ENABLE([Fortran2008-features],
+              AS_HELP_STRING([--enable-Fortran2008-features],
+                             [enables some Fortran 2008 features, default yes.]),
+			     [if test x"$enableval"=x"yes"; then
+			        enable_fortran2008_featuresr=yes
+		              else
+				enable_fortran2008_features=no
+			      fi],
+              [enable_fortran2008_features=yes])
+AC_MSG_RESULT([${enable_fortran2008_features}])
+AM_CONDITIONAL([USE_FORTRAN2008],[test x"$enable_fortran2008_features" = x"yes"])
+if test x"${enable_fortran2008_features}" = x"yes"; then
+ AC_DEFINE([USE_FORTRAN2008], [1], [use some Fortran 2008 features])
+fi
+
 enable_kcomputer=no
 AC_MSG_CHECKING(whether we build for K-computer)
 AC_ARG_ENABLE([K-computer],
@@ -926,24 +943,11 @@ if test x"${enable_kcomputer}" = x"yes"; then
  AC_DEFINE([BUILD_KCOMPUTER], [1], [build for K-Computer])
  FC_MODINC="-I"
   if test x"${USE_ASSUMED_SIZE}" = x"yes" ; then
-    AC_MSG_ERROR(on K-computer you have to switch of assumed-size arrays!)
+    AC_MSG_ERROR(on K-computer you have to switch off assumed-size arrays!)
   fi
-fi
-enable_fortran2008_features=yes
-AC_MSG_CHECKING(whether Fortran 2008 featues should be enabled)
-AC_ARG_ENABLE([Fortran2008-features],
-              AS_HELP_STRING([--enable-Fortran2008-features],
-                             [enables some Fortran 2008 features, default yes.]),
-			     [if test x"$enableval"=x"yes"; then
-			        enable_fortran2008_featuresr=yes
-		              else
-				enable_fortran2008_features=no
-			      fi],
-              [enable_fortran2008_features=yes])
-AC_MSG_RESULT([${enable_fortran2008_features}])
-AM_CONDITIONAL([USE_FORTRAN2008],[test x"$enable_fortran2008_features" = x"yes"])
-if test x"${enable_fortran2008_features}" = x"yes"; then
- AC_DEFINE([USE_FORTRAN2008], [1], [use some Fortran 2008 features])
+  if test x"${enable_fortran2008_features}" = x"yes" ; then
+    AC_MSG_ERROR(on K-computer you have to switch off Fortran 2008 features!)
+  fi
 fi
 
 if test x"${want_single_precision}" = x"yes" ; then
