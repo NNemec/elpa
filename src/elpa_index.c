@@ -43,12 +43,12 @@
 //    the original distribution, the GNU Lesser General Public License.
 //
 //    Authors: L. Huedepohl and A. Marek, MPCDF
-
 #include "config.h"
 #include <elpa/elpa.h>
 #include "elpa_index.h"
 
 #include <execinfo.h>
+#include <stdio.h>
 
 static int enumerate_identity(int i);
 static int cardinality_bool(void);
@@ -162,10 +162,10 @@ static const elpa_index_int_entry_t int_entries[] = {
         }
 
 static const elpa_index_double_entry_t double_entries[] = {
-        /* Empty for now */
 #ifdef BUILD_KCOMPUTER
 	NULL,
 #endif
+        /* Empty for now */
 };
 
 void elpa_index_free(elpa_index_t index) {
@@ -644,7 +644,9 @@ static int bw_is_valid(elpa_index_t index, int n, int new_value) {
 }
 
 elpa_index_t elpa_index_instance() {
+        printf("In elpa_index_instance \n");
         elpa_index_t index = (elpa_index_t) calloc(1, sizeof(struct elpa_index_struct));
+        printf("In elpa_index_instance1 \n");
 
 #define ALLOCATE(TYPE, PRINTF_SPEC, ...) \
         index->TYPE##_options.values = (TYPE*) calloc(nelements(TYPE##_entries), sizeof(TYPE)); \
@@ -658,8 +660,10 @@ elpa_index_t elpa_index_instance() {
                 index->TYPE##_options.values[n] = default_value; \
         }
 
+        printf("In elpa_index_instance2 \n");
         FOR_ALL_TYPES(ALLOCATE)
 
+        printf("In elpa_index_instance3 \n");
         return index;
 }
 
