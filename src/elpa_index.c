@@ -163,7 +163,7 @@ static const elpa_index_int_entry_t int_entries[] = {
 
 static const elpa_index_double_entry_t double_entries[] = {
 #ifdef BUILD_KCOMPUTER
-	NULL,
+        { BASE_ENTRY("invalid_double", "invalid description", 0, 0, 0) },
 #endif
         /* Empty for now */
 };
