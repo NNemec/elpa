@@ -1,5 +1,6 @@
 #if [ "$HOST" = "buildtest-rzg" ]; then module load impi/5.1.3 intel/16.0 gcc/6.3 mkl/11.3 autotools pkg-config; fi
 if [ "$(hostname)" = "knl1" -o "$HOST" = "knl2" -o "$HOST" = "knl3" -o "$HOST" = "knl4" ] ; then module load impi/5.1.3 intel/17.0 gcc/6.3 mkl/2017 pkg-config; fi
+if [ "$(hostname)" = "gp02" ] ; then module load impi/5.1.3 intel/17.0 gcc/6.3 mkl/2017 pkg-config; fi
 #if [ "$HOST" = "gp02" ] ; then module load impi/2017.2 intel/17.0 gcc/6.3 mkl/2017 pkg-config; fi
 #if [ "$HOST" != "hydra03" -a "$HOST" != "hydra04" -a "$HOST" != "hydra05"  -a "$HOST" != "hydra06"  -a "$HOST" != "hydra07"  -a "$HOST" != "knl1" -a "$HOST" != "knl2" -a "$HOST" != "knl3" -a "$HOST" != "knl4" -a "$HOST" != "gp02" -a "$HOST" != "draco01" -a "$HOST" != "draco02" -a "$HOST" != "draco03" -a "$HOST" != "draco04"  ] ; then module load impi/5.1.3 intel/16.0 gcc/6.4 mkl/11.3 autotools pkg-config; fi
 #if [ "$HOST" = "draco01" -o "$HOST" = "draco02" -o "$HOST" = "draco03" -o "$HOST" = "draco04" ] ; then module load impi/2017.3 intel/17.0 gcc/6.3 mkl/2017 pkg-config; fi

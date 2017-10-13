@@ -142,7 +142,7 @@ fi
 
 dnl check which MPI binray invokes a MPI job
 if test x"$with_mpi" = x"yes"; then
-  AC_CHECK_PROGS([MPI_BINARY], [srun mpiexec.hydra mpiexec mpirun poe runjob], [no])
+  AC_CHECK_PROGS([MPI_BINARY], [mpiexec.hydra mpiexec mpirun poe runjob srun], [no])
   if test x"$MPI_BINARY" = x"no"; then
     AC_MSG_ERROR([Could not find either of the MPI binaries: mpiexec.hydra, mpiexec, mpirun, poe, runjob, srun])
   fi
@@ -915,7 +915,7 @@ AC_ARG_ENABLE([Fortran2008-features],
               AS_HELP_STRING([--enable-Fortran2008-features],
                              [enables some Fortran 2008 features, default yes.]),
 			     [if test x"$enableval"=x"yes"; then
-			        enable_fortran2008_featuresr=yes
+			        enable_fortran2008_features=yes
 		              else
 				enable_fortran2008_features=no
 			      fi],
