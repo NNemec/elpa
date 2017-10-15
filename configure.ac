@@ -67,7 +67,12 @@ fi
 
 
 dnl mpi
-AC_ARG_WITH(mpi, [AS_HELP_STRING([--with-mpi=[[yes|no]]], [compile with MPI. Default: yes])],,[with_mpi=yes])
+AC_ARG_WITH(mpi, [AS_HELP_STRING([--with-mpi=[[yes|no]]], [compile with MPI. Default: yes])],
+                                 [if test x"${withval}" = x"1"; then
+				    with_mpi=yes
+				  else
+		                    with_mpi=no
+				  fi],[with_mpi=yes])
 AM_CONDITIONAL([WITH_MPI],[test x"$with_mpi" = x"yes"])
 if test x"${with_mpi}" = x"yes"; then
   AC_DEFINE([WITH_MPI], [1], [use MPI])
