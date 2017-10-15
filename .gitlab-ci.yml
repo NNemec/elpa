@@ -11,10 +11,10 @@ before_script:
   - ulimit -v unlimited
   - echo "HOST " $(hostname)
   - if [ "$(hostname)" = "buildtest-rzg" ]; then module purge && module load git && module list && source .ci-env-vars; fi
-  - if [ "$(hostname)" = "amarek-elpa-gitlab-runner-1" ]; then module purge && module load git && module list && source .ci-env-vars; fi
-  - if [ "$(hostname)" = "amarek-elpa-gitlab-runner-2" ]; then module purge && module load git && module list && source .ci-env-vars; fi
-  - if [ "$(hostname)" = "amarek-elpa-gitlab-runner-3" ]; then module purge && module load git && module list && source .ci-env-vars; fi
-  - if [ "$(hostname)" = "amarek-elpa-gitlab-runner-4" ]; then module purge && module load git && module list && source .ci-env-vars; fi
+  - if [ "$(hostname)" = "amarek-elpa-gitlab-runner-1" ]; then module purge && module list && source .ci-env-vars; fi
+  - if [ "$(hostname)" = "amarek-elpa-gitlab-runner-2" ]; then module purge && module list && source .ci-env-vars; fi
+  - if [ "$(hostname)" = "amarek-elpa-gitlab-runner-3" ]; then module purge && module list && source .ci-env-vars; fi
+  - if [ "$(hostname)" = "amarek-elpa-gitlab-runner-4" ]; then module purge && module list && source .ci-env-vars; fi
   - ./autogen.sh
 
 
