@@ -37,8 +37,7 @@ intel-double-precision-mpi-noomp-avx512-jobs:
       #- pwd
     - srun -n 1 --partition=gp --nodelist=gp02 --time=40 /scratch/elpa/bin/configure_elpa.sh "FC=mpiifort CC=mpiicc --enable-option-checking=fatal CFLAGS=\"-O3 -xCORE-AVX512\" FCFLAGS=\"-O3 -CORE-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP\" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP\" --enable-avx512"
     - srun -n 1 -c 8 --partition=gp --nodelist=gp02 --time=40 /scratch/elpa/bin/build_elpa.sh
-    - export tasks=2
-    - srun -n $tasks --partition=gp --nodelist=gp02 --time=40 /scratch/elpa/bin/run_elpa.sh $tasks "TEST_FLAGS=\"150 50 16\""
+    - srun -n 1 --partition=gp --nodelist=gp02 --time=40 /scratch/elpa/bin/run_elpa.sh 2 "TEST_FLAGS=\"150 50 16\""
 #   - export LD_LIBRARY_PATH=$MKLROOT/lib/intel64:$LD_LIBRARY_PATH
 #   - make check TASKS=2 TEST_FLAGS='150 50 16' || { cat test-suite.log; exit 1; }
 #    - grep -i "Expected %stop" test-suite.log && exit 1 || true ;
