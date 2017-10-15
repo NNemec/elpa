@@ -35,7 +35,15 @@ intel-double-precision-mpi-noomp-avx2-jobs:
     - ./autogen.sh
     - srun -n 1 --partition=gp --nodelist=gp02 --time=40 /scratch/elpa/bin/configure_elpa.sh "FC=mpiifort CC=mpiicc --enable-option-checking=fatal CFLAGS=\"-O3 -xCORE-AVX2\" FCFLAGS=\"-O3 -xCORE-AVX2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP\" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP\" --enable-avx2"
     - srun -n 1 -c 8 --partition=gp --nodelist=gp02 --time=40 /scratch/elpa/bin/build_elpa.sh
-    - srun -n 1 --partition=gp --nodelist=gp02 --time=40 /scratch/elpa/bin/run_elpa.sh 2 "TEST_FLAGS=\"150 50 16\""
+    - srun -n 1 --partition=gp --nodelist=gp02 --time=40 /scratch/elpa/bin/run_elpa.sh 2 "TEST_FLAGS=\"150 50 16\" || { cat test-suite.log; exit 1; }"
+
+created:
+  tags:
+    - avx2
+  script:
+    - srun -n 1 --partition=gp --nodelist=gp02 --time=10 /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"mpif90\" FCFLAGS=\"-O3 -mavx2 -mfma\" SCALAPACK_LDFLAGS=\" $MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\" $MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
+    - srun -n 1 -c 8 --partition=gp --nodelist=gp02 --time=20 /scratch/elpa/bin/build_elpa.sh
+    - srun -n 1 -c 4  --partition=gp --nodelist=gp02 --time=20 /scratch/elpa/bin/run_elpa.sh 2 " TEST_FLAGS=\"150 150 16\"  || { cat test-suite.log; exit 1; }"
 
 total_coverage:
   only:
