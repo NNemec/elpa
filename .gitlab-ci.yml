@@ -37,7 +37,7 @@ intel-double-precision-mpi-noomp-avx2-jobs:
     - srun -n 1 -c 8 --partition=gp --nodelist=gp02 --time=40 /scratch/elpa/bin/build_elpa.sh
     - srun -n 1 --partition=gp --nodelist=gp02 --time=40 /scratch/elpa/bin/run_elpa.sh 2 "TEST_FLAGS=\"150 50 16\""
 
-  total_coverage:
+total_coverage:
   only:
     - /.*master.*/
   stage: coverage
