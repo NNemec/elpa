@@ -142,12 +142,14 @@ fi
 
 dnl check which MPI binray invokes a MPI job
 if test x"$with_mpi" = x"yes"; then
-  AC_MSG_CHECKING(which binary should be used to launch MPI programs)
-  AC_CHECK_PROGS([MPI_BINARY], [mpiexec.hydra mpiexec mpirun poe runjob srun], [no])
-  if test x"$MPI_BINARY" = x"no"; then
-    AC_MSG_ERROR([Could not find either of the MPI binaries: mpiexec.hydra, mpiexec, mpirun, poe, runjob, srun])
+  if test x"$MPI_BINARY" = x""; then
+    AC_CHECK_PROGS([MPI_BINARY], [mpiexec.hydra mpiexec mpirun poe runjob srun], [no])
+    if test x"$MPI_BINARY" = x"no"; then
+      AC_MSG_ERROR([Could not find either of the MPI binaries: mpiexec.hydra, mpiexec, mpirun, poe, runjob, srun])
+    fi
+  else
+    echo "Using " $MPI_BINARY " for MPI launch"
   fi
-  AC_MSG_RESULT([${MPI_BINARY}])
 fi
 
 dnl build with the possibilty to redirect stdout and stderr
