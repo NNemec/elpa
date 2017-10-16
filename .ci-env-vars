@@ -1,5 +1,5 @@
 if [ "$(hostname)" = "buildtest-rzg" ]; then module load impi/5.1.3 intel/16.0 gcc/6.3 mkl/11.3 autotools pkg-config; fi
-if [ "$(hostname)" = "knl1" -o "$HOST" = "knl2" -o "$HOST" = "knl3" -o "$HOST" = "knl4" ] ; then module load impi/2017.2 intel/17.0 gcc/7.2 mkl/2017 pkg-config; fi
+if [ "$(hostname)" = "knl1" -o "$(hostname)" = "knl2" -o "$(hostname)" = "knl3" -o "$(hostname)" = "knl4" ] ; then module load impi/2017.2 intel/17.0 gcc/7.2 mkl/2017 pkg-config; fi
 if [ "$(hostname)" = "gp02" ] ; then module load impi/5.1.3 intel/17.0 gcc/6.3 mkl/2017 pkg-config; fi
 module list
 if [ "$(hostname)" = "amarek-elpa-gitlab-runner-1" ]; then module load intel/16.0 gcc mkl/11.3 autoconf automake libtool impi/5.1.3; fi
