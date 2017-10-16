@@ -326,6 +326,8 @@ gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-n
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"mpif90\" FCFLAGS=\"-O3 -mavx2 -mfma\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
@@ -345,6 +347,8 @@ gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-n
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -march=skylake-avx512\" FC=\"mpif90\" FCFLAGS=\"-O3 -march=skylake-avx512\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
@@ -388,6 +392,8 @@ gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-n
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"mpif90\" FCFLAGS=\"-O3 -mavx2 -mfma\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
@@ -407,6 +413,8 @@ gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-n
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -march=skylake-avx512\" FC=\"mpif90\" FCFLAGS=\"-O3 -march=skylake-avx512\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
@@ -426,9 +434,14 @@ gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-n
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -march=native\" FC=\"mpif90\" FCFLAGS=\"-O3 -march=native\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
+    - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
+    - sleep 10
+    - srun -n 1 -c 8  --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$RUNTIME /scratch/elpa/bin/run_elpa.sh 2 " TEST_FLAGS=\"150 150 16\"  || { cat test-suite.log; exit 1; }"
 
 
 
@@ -466,6 +479,8 @@ gnu-gnu-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"gcc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"gfortran\" FCFLAGS=\"-O3 -mavx2 -mfma\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
@@ -485,6 +500,8 @@ gnu-gnu-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"gcc\" CFLAGS=\"-O3 -march=skylake-avx512\" FC=\"gfortran\" FCFLAGS=\"-O3 -march=skylake-avx512\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
@@ -528,6 +545,8 @@ gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"gcc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"gfortran\" FCFLAGS=\"-O3 -mavx2 -mfma\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
@@ -547,6 +566,8 @@ gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"gcc\" CFLAGS=\"-O3 -march=skylake-avx512\" FC=\"gfortran\" FCFLAGS=\"-O3 -march=skylake-avx512\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
@@ -566,9 +587,14 @@ gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"gcc\" CFLAGS=\"-O3 -march=native\" FC=\"gfortran\" FCFLAGS=\"-O3 -march=native\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
+    - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
+    - sleep 10
+    - srun -n 1 -c 8  --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$RUNTIME /scratch/elpa/bin/run_elpa.sh 2 " TEST_FLAGS=\"150 150 16\"  || { cat test-suite.log; exit 1; }"
 
 
 
@@ -606,6 +632,8 @@ gnu-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"mpiifort\" FCFLAGS=\"-O3 -march=core-avx2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
@@ -625,6 +653,8 @@ gnu-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -march=skylake-avx512\" FC=\"mpiifort\" FCFLAGS=\"-O3 -xCORE-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
@@ -668,6 +698,8 @@ gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"mpiifort\" FCFLAGS=\"-O3 -march=core-avx2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
@@ -687,6 +719,8 @@ gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -march=skylake-avx512\" FC=\"mpiifort\" FCFLAGS=\"-O3 -xCORE-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
@@ -706,9 +740,14 @@ gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -march=native\" FC=\"mpiifort\" FCFLAGS=\"-O3 -mtune=knl -xMIC-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
+    - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
+    - sleep 10
+    - srun -n 1 -c 8  --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$RUNTIME /scratch/elpa/bin/run_elpa.sh 2 " TEST_FLAGS=\"150 150 16\"  || { cat test-suite.log; exit 1; }"
 
 
 
@@ -746,6 +785,8 @@ gnu-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocki
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"gcc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"ifort\" FCFLAGS=\"-O3 -march=core-avx2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
@@ -765,6 +806,8 @@ gnu-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocki
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"gcc\" CFLAGS=\"-O3 -march=skylake-avx512\" FC=\"ifort\" FCFLAGS=\"-O3 -xCORE-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
@@ -808,6 +851,8 @@ gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"gcc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"ifort\" FCFLAGS=\"-O3 -march=core-avx2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
@@ -827,6 +872,8 @@ gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"gcc\" CFLAGS=\"-O3 -march=skylake-avx512\" FC=\"ifort\" FCFLAGS=\"-O3 -xCORE-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
@@ -846,9 +893,14 @@ gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"gcc\" CFLAGS=\"-O3 -march=native\" FC=\"ifort\" FCFLAGS=\"-O3 -mtune=knl -xMIC-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
+    - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
+    - sleep 10
+    - srun -n 1 -c 8  --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$RUNTIME /scratch/elpa/bin/run_elpa.sh 2 " TEST_FLAGS=\"150 150 16\"  || { cat test-suite.log; exit 1; }"
 
 
 
@@ -886,6 +938,8 @@ intel-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocki
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpiicc\" CFLAGS=\"-O3 -march=core-avx2\" FC=\"mpiifort\" FCFLAGS=\"-O3 -march=core-avx2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
@@ -905,6 +959,8 @@ intel-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocki
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpiicc\" CFLAGS=\"-O3 -xCORE-AVX512\" FC=\"mpiifort\" FCFLAGS=\"-O3 -xCORE-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
@@ -948,6 +1004,8 @@ intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpiicc\" CFLAGS=\"-O3 -march=core-avx2\" FC=\"mpiifort\" FCFLAGS=\"-O3 -march=core-avx2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
@@ -967,6 +1025,8 @@ intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpiicc\" CFLAGS=\"-O3 -xCORE-AVX512\" FC=\"mpiifort\" FCFLAGS=\"-O3 -xCORE-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
@@ -986,9 +1046,14 @@ intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpiicc\" CFLAGS=\"-O3 -mtune=knl -xMIC-AVX512\" FC=\"mpiifort\" FCFLAGS=\"-O3 -mtune=knl -xMIC-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
+    - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
+    - sleep 10
+    - srun -n 1 -c 8  --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$RUNTIME /scratch/elpa/bin/run_elpa.sh 2 " TEST_FLAGS=\"150 150 16\"  || { cat test-suite.log; exit 1; }"
 
 
 
@@ -1026,6 +1091,8 @@ intel-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-bloc
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"icc\" CFLAGS=\"-O3 -march=core-avx2\" FC=\"ifort\" FCFLAGS=\"-O3 -march=core-avx2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
@@ -1045,6 +1112,8 @@ intel-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-bloc
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"icc\" CFLAGS=\"-O3 -xCORE-AVX512\" FC=\"ifort\" FCFLAGS=\"-O3 -xCORE-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
@@ -1088,6 +1157,8 @@ intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-bloc
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"icc\" CFLAGS=\"-O3 -march=core-avx2\" FC=\"ifort\" FCFLAGS=\"-O3 -march=core-avx2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
@@ -1107,6 +1178,8 @@ intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-bloc
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"icc\" CFLAGS=\"-O3 -xCORE-AVX512\" FC=\"ifort\" FCFLAGS=\"-O3 -xCORE-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
@@ -1126,9 +1199,14 @@ intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-bloc
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
     - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"icc\" CFLAGS=\"-O3 -mtune=knl -xMIC-AVX512\" FC=\"ifort\" FCFLAGS=\"-O3 -mtune=knl -xMIC-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
+    - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
+    - sleep 10
+    - srun -n 1 -c 8  --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$RUNTIME /scratch/elpa/bin/run_elpa.sh 2 " TEST_FLAGS=\"150 150 16\"  || { cat test-suite.log; exit 1; }"
 
 
 
