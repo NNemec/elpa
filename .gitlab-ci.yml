@@ -305,11 +305,11 @@ test_project_2stage_intel_legacy_api:
 
 #The tests follow here
 # gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize
-gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx-no-address-sanitize-jobs:
+gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize-jobs:
   tags:
     - avx
   script:
-    - ./configure  CC="mpicc" CFLAGS="-O3 -mavx" FC="mpif90" FCFLAGS="-O3 -mavx" SCALAPACK_LDFLAGS="$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=1 --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx --disable-avx2 || { cat config.log; exit 1; }
+    - ./configure  CC="mpicc" CFLAGS="-O3 -mavx" FC="mpif90" FCFLAGS="-O3 -mavx" SCALAPACK_LDFLAGS="$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=1 --disable-mpi-module --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx --disable-avx2 || { cat config.log; exit 1; }
     - make -j 8
     - make check TASKS=2 TEST_FLAGS="150 150 16" || { cat test-suite.log; exit 1; }
     - grep -i "Expected %stop" test-suite.log && exit 1 || true ;
@@ -317,7 +317,7 @@ gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-n
 
 
 # gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize
-gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx2-no-address-sanitize-jobs:
+gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize-jobs:
   tags:
     - avx2
   script:
@@ -329,7 +329,7 @@ gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-n
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
-    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"mpif90\" FCFLAGS=\"-O3 -mavx2 -mfma\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
+    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"mpif90\" FCFLAGS=\"-O3 -mavx2 -mfma\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-mpi-module --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
     - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
     - sleep 10
@@ -338,7 +338,7 @@ gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-n
 
 
 # gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize
-gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx512-no-address-sanitize-jobs:
+gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize-jobs:
   tags:
     - avx512
   script:
@@ -350,7 +350,7 @@ gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-n
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
-    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -march=skylake-avx512\" FC=\"mpif90\" FCFLAGS=\"-O3 -march=skylake-avx512\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
+    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -march=skylake-avx512\" FC=\"mpif90\" FCFLAGS=\"-O3 -march=skylake-avx512\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-mpi-module --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
     - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
     - sleep 10
@@ -359,11 +359,11 @@ gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-n
 
 
 # gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize
-gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_sse-no-address-sanitize-jobs:
+gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize-jobs:
   tags:
     - sse
   script:
-    - ./configure  CC="mpicc" CFLAGS="-O3 -msse4.2" FC="mpif90" FCFLAGS="-O3 -msse4.2" SCALAPACK_LDFLAGS="$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=1 --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-sse --enable-sse-assembly --disable-avx --disable-avx2 || { cat config.log; exit 1; }
+    - ./configure  CC="mpicc" CFLAGS="-O3 -msse4.2" FC="mpif90" FCFLAGS="-O3 -msse4.2" SCALAPACK_LDFLAGS="$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=1 --disable-mpi-module --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-sse --enable-sse-assembly --disable-avx --disable-avx2 || { cat config.log; exit 1; }
     - make -j 8
     - make check TASKS=2 TEST_FLAGS="150 150 16" || { cat test-suite.log; exit 1; }
     - grep -i "Expected %stop" test-suite.log && exit 1 || true ;
@@ -371,11 +371,11 @@ gnu-gnu-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-n
 
 
 # gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize
-gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx-no-address-sanitize-jobs:
+gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize-jobs:
   tags:
     - avx
   script:
-    - ./configure  CC="mpicc" CFLAGS="-O3 -mavx" FC="mpif90" FCFLAGS="-O3 -mavx" SCALAPACK_LDFLAGS="$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx --disable-avx2 || { cat config.log; exit 1; }
+    - ./configure  CC="mpicc" CFLAGS="-O3 -mavx" FC="mpif90" FCFLAGS="-O3 -mavx" SCALAPACK_LDFLAGS="$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=1 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx --disable-avx2 || { cat config.log; exit 1; }
     - make -j 8
     - make check TASKS=2 TEST_FLAGS="150 150 16" || { cat test-suite.log; exit 1; }
     - grep -i "Expected %stop" test-suite.log && exit 1 || true ;
@@ -383,7 +383,7 @@ gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-n
 
 
 # gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize
-gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx2-no-address-sanitize-jobs:
+gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize-jobs:
   tags:
     - avx2
   script:
@@ -395,7 +395,7 @@ gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-n
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
-    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"mpif90\" FCFLAGS=\"-O3 -mavx2 -mfma\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
+    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"mpif90\" FCFLAGS=\"-O3 -mavx2 -mfma\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
     - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
     - sleep 10
@@ -404,7 +404,7 @@ gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-n
 
 
 # gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize
-gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx512-no-address-sanitize-jobs:
+gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize-jobs:
   tags:
     - avx512
   script:
@@ -416,7 +416,7 @@ gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-n
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
-    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -march=skylake-avx512\" FC=\"mpif90\" FCFLAGS=\"-O3 -march=skylake-avx512\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
+    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -march=skylake-avx512\" FC=\"mpif90\" FCFLAGS=\"-O3 -march=skylake-avx512\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
     - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
     - sleep 10
@@ -425,7 +425,7 @@ gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-n
 
 
 # gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-knl-no-address-sanitize
-gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_knl-no-address-sanitize-jobs:
+gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-knl-no-address-sanitize-jobs:
   tags:
     - knl
   script:
@@ -437,7 +437,7 @@ gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-n
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
-    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -march=native\" FC=\"mpif90\" FCFLAGS=\"-O3 -march=native\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
+    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -march=native\" FC=\"mpif90\" FCFLAGS=\"-O3 -march=native\" SCALAPACK_LDFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
     - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
     - sleep 10
@@ -446,11 +446,11 @@ gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-n
 
 
 # gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize
-gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_sse-no-address-sanitize-jobs:
+gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize-jobs:
   tags:
     - sse
   script:
-    - ./configure  CC="mpicc" CFLAGS="-O3 -msse4.2" FC="mpif90" FCFLAGS="-O3 -msse4.2" SCALAPACK_LDFLAGS="$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-sse --enable-sse-assembly --disable-avx --disable-avx2 || { cat config.log; exit 1; }
+    - ./configure  CC="mpicc" CFLAGS="-O3 -msse4.2" FC="mpif90" FCFLAGS="-O3 -msse4.2" SCALAPACK_LDFLAGS="$MKL_GFORTRAN_SCALAPACK_LDFLAGS_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_GFORTRAN_SCALAPACK_FCFLAGS_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=1 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-sse --enable-sse-assembly --disable-avx --disable-avx2 || { cat config.log; exit 1; }
     - make -j 8
     - make check TASKS=2 TEST_FLAGS="150 150 16" || { cat test-suite.log; exit 1; }
     - grep -i "Expected %stop" test-suite.log && exit 1 || true ;
@@ -458,7 +458,7 @@ gnu-gnu-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-n
 
 
 # gnu-gnu-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize
-gnu-gnu-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx-no-address-sanitize-jobs:
+gnu-gnu-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize-jobs:
   tags:
     - avx
   script:
@@ -470,7 +470,7 @@ gnu-gnu-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking
 
 
 # gnu-gnu-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize
-gnu-gnu-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx2-no-address-sanitize-jobs:
+gnu-gnu-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize-jobs:
   tags:
     - avx2
   script:
@@ -491,7 +491,7 @@ gnu-gnu-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking
 
 
 # gnu-gnu-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize
-gnu-gnu-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx512-no-address-sanitize-jobs:
+gnu-gnu-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize-jobs:
   tags:
     - avx512
   script:
@@ -512,7 +512,7 @@ gnu-gnu-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking
 
 
 # gnu-gnu-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize
-gnu-gnu-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_sse-no-address-sanitize-jobs:
+gnu-gnu-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize-jobs:
   tags:
     - sse
   script:
@@ -524,7 +524,7 @@ gnu-gnu-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking
 
 
 # gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize
-gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx-no-address-sanitize-jobs:
+gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize-jobs:
   tags:
     - avx
   script:
@@ -536,7 +536,7 @@ gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking
 
 
 # gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize
-gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx2-no-address-sanitize-jobs:
+gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize-jobs:
   tags:
     - avx2
   script:
@@ -557,7 +557,7 @@ gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking
 
 
 # gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize
-gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx512-no-address-sanitize-jobs:
+gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize-jobs:
   tags:
     - avx512
   script:
@@ -578,7 +578,7 @@ gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking
 
 
 # gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-knl-no-address-sanitize
-gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_knl-no-address-sanitize-jobs:
+gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-knl-no-address-sanitize-jobs:
   tags:
     - knl
   script:
@@ -599,7 +599,7 @@ gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking
 
 
 # gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize
-gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_sse-no-address-sanitize-jobs:
+gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize-jobs:
   tags:
     - sse
   script:
@@ -611,7 +611,7 @@ gnu-gnu-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking
 
 
 # gnu-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize
-gnu-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx-no-address-sanitize-jobs:
+gnu-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize-jobs:
   tags:
     - avx
   script:
@@ -623,7 +623,7 @@ gnu-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking
 
 
 # gnu-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize
-gnu-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx2-no-address-sanitize-jobs:
+gnu-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize-jobs:
   tags:
     - avx2
   script:
@@ -635,7 +635,7 @@ gnu-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
-    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"mpiifort\" FCFLAGS=\"-O3 -march=core-avx2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
+    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"mpiifort\" FCFLAGS=\"-O3 -xAVX2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
     - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
     - sleep 10
@@ -644,7 +644,7 @@ gnu-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking
 
 
 # gnu-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize
-gnu-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx512-no-address-sanitize-jobs:
+gnu-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize-jobs:
   tags:
     - avx512
   script:
@@ -665,7 +665,7 @@ gnu-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking
 
 
 # gnu-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize
-gnu-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_sse-no-address-sanitize-jobs:
+gnu-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize-jobs:
   tags:
     - sse
   script:
@@ -677,7 +677,7 @@ gnu-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking
 
 
 # gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize
-gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx-no-address-sanitize-jobs:
+gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize-jobs:
   tags:
     - avx
   script:
@@ -689,7 +689,7 @@ gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking
 
 
 # gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize
-gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx2-no-address-sanitize-jobs:
+gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize-jobs:
   tags:
     - avx2
   script:
@@ -701,7 +701,7 @@ gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
-    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"mpiifort\" FCFLAGS=\"-O3 -march=core-avx2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
+    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"mpiifort\" FCFLAGS=\"-O3 -xAVX2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
     - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
     - sleep 10
@@ -710,7 +710,7 @@ gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking
 
 
 # gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize
-gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx512-no-address-sanitize-jobs:
+gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize-jobs:
   tags:
     - avx512
   script:
@@ -730,29 +730,29 @@ gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking
 
 
 
-# gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-knl-no-address-sanitize
-gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_knl-no-address-sanitize-jobs:
-  tags:
-    - knl
-  script:
-    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-gp02" ]; then export SLURMHOST=gp02 && export SLURMPARTITION=gp &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
-    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl1" ]; then export SLURMHOST=knl1 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
-    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
-    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
-    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
-    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
-    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
-    - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
-    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -march=native\" FC=\"mpiifort\" FCFLAGS=\"-O3 -mtune=knl -xMIC-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
-    - sleep 10
-    - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
-    - sleep 10
-    - srun -n 1 -c 8  --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$RUNTIME /scratch/elpa/bin/run_elpa.sh 2 " TEST_FLAGS=\"150 150 16\"  || { cat test-suite.log; exit 1; }"
-
+      ## gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-knl-no-address-sanitize
+      #gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-knl-no-address-sanitize-jobs:
+      #  tags:
+      #    - knl
+      #  script:
+      #    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-gp02" ]; then export SLURMHOST=gp02 && export SLURMPARTITION=gp &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+      #    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl1" ]; then export SLURMHOST=knl1 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+      #    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl2" ]; then export SLURMHOST=knl2 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+      #    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl3" ]; then export SLURMHOST=knl3 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+      #    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-knl4" ]; then export SLURMHOST=knl4 && export SLURMPARTITION=knl &&                         export CONFIGURETIME=15 && export BUILDTIME=40 && export RUNTIME=40; fi
+      #    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+      #    - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
+      #    - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
+      #    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpicc\" CFLAGS=\"-O3 -march=native\" FC=\"mpiifort\" FCFLAGS=\"-O3 -xMIC-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
+      #    - sleep 10
+      #    - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
+      #    - sleep 10
+      #    - srun -n 1 -c 8  --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$RUNTIME /scratch/elpa/bin/run_elpa.sh 2 " TEST_FLAGS=\"150 150 16\"  || { cat test-suite.log; exit 1; }"
+      #
 
 
 # gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize
-gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_sse-no-address-sanitize-jobs:
+gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize-jobs:
   tags:
     - sse
   script:
@@ -764,7 +764,7 @@ gnu-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking
 
 
 # gnu-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize
-gnu-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx-no-address-sanitize-jobs:
+gnu-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize-jobs:
   tags:
     - avx
   script:
@@ -776,7 +776,7 @@ gnu-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocki
 
 
 # gnu-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize
-gnu-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx2-no-address-sanitize-jobs:
+gnu-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize-jobs:
   tags:
     - avx2
   script:
@@ -788,7 +788,7 @@ gnu-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocki
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
-    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"gcc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"ifort\" FCFLAGS=\"-O3 -march=core-avx2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
+    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"gcc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"ifort\" FCFLAGS=\"-O3 -xAVX2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
     - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
     - sleep 10
@@ -797,7 +797,7 @@ gnu-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocki
 
 
 # gnu-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize
-gnu-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx512-no-address-sanitize-jobs:
+gnu-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize-jobs:
   tags:
     - avx512
   script:
@@ -818,7 +818,7 @@ gnu-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocki
 
 
 # gnu-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize
-gnu-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_sse-no-address-sanitize-jobs:
+gnu-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize-jobs:
   tags:
     - sse
   script:
@@ -830,7 +830,7 @@ gnu-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocki
 
 
 # gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize
-gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx-no-address-sanitize-jobs:
+gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize-jobs:
   tags:
     - avx
   script:
@@ -842,7 +842,7 @@ gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
 
 
 # gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize
-gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx2-no-address-sanitize-jobs:
+gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize-jobs:
   tags:
     - avx2
   script:
@@ -854,7 +854,7 @@ gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
-    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"gcc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"ifort\" FCFLAGS=\"-O3 -march=core-avx2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
+    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"gcc\" CFLAGS=\"-O3 -mavx2 -mfma\" FC=\"ifort\" FCFLAGS=\"-O3 -xAVX2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
     - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
     - sleep 10
@@ -863,7 +863,7 @@ gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
 
 
 # gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize
-gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx512-no-address-sanitize-jobs:
+gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize-jobs:
   tags:
     - avx512
   script:
@@ -884,7 +884,7 @@ gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
 
 
 # gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-knl-no-address-sanitize
-gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_knl-no-address-sanitize-jobs:
+gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-knl-no-address-sanitize-jobs:
   tags:
     - knl
   script:
@@ -896,7 +896,7 @@ gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
-    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"gcc\" CFLAGS=\"-O3 -march=native\" FC=\"ifort\" FCFLAGS=\"-O3 -mtune=knl -xMIC-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
+    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"gcc\" CFLAGS=\"-O3 -march=native\" FC=\"ifort\" FCFLAGS=\"-O3 -xMIC-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
     - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
     - sleep 10
@@ -905,7 +905,7 @@ gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
 
 
 # gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize
-gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_sse-no-address-sanitize-jobs:
+gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize-jobs:
   tags:
     - sse
   script:
@@ -917,11 +917,11 @@ gnu-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
 
 
 # intel-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize
-intel-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx-no-address-sanitize-jobs:
+intel-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize-jobs:
   tags:
     - avx
   script:
-    - ./configure  CC="mpiicc" CFLAGS="-O3 -mavx" FC="mpiifort" FCFLAGS="-O3 -mavx" SCALAPACK_LDFLAGS="$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=1 --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx --disable-avx2 || { cat config.log; exit 1; }
+    - ./configure  CC="mpiicc" CFLAGS="-O3 -xAVX" FC="mpiifort" FCFLAGS="-O3 -xAVX" SCALAPACK_LDFLAGS="$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=1 --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx --disable-avx2 || { cat config.log; exit 1; }
     - make -j 8
     - make check TASKS=2 TEST_FLAGS="150 150 16" || { cat test-suite.log; exit 1; }
     - grep -i "Expected %stop" test-suite.log && exit 1 || true ;
@@ -929,7 +929,7 @@ intel-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocki
 
 
 # intel-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize
-intel-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx2-no-address-sanitize-jobs:
+intel-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize-jobs:
   tags:
     - avx2
   script:
@@ -941,7 +941,7 @@ intel-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocki
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
-    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpiicc\" CFLAGS=\"-O3 -march=core-avx2\" FC=\"mpiifort\" FCFLAGS=\"-O3 -march=core-avx2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
+    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpiicc\" CFLAGS=\"-O3 -xAVX2\" FC=\"mpiifort\" FCFLAGS=\"-O3 -xAVX2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
     - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
     - sleep 10
@@ -950,7 +950,7 @@ intel-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocki
 
 
 # intel-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize
-intel-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx512-no-address-sanitize-jobs:
+intel-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize-jobs:
   tags:
     - avx512
   script:
@@ -971,11 +971,11 @@ intel-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocki
 
 
 # intel-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize
-intel-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_sse-no-address-sanitize-jobs:
+intel-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize-jobs:
   tags:
     - sse
   script:
-    - ./configure  CC="mpiicc" CFLAGS="-O3 -msse4.2" FC="mpiifort" FCFLAGS="-O3 -msse4.2" SCALAPACK_LDFLAGS="$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=1 --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-sse --enable-sse-assembly --disable-avx --disable-avx2 || { cat config.log; exit 1; }
+    - ./configure  CC="mpiicc" CFLAGS="-O3 -xSSE4.2" FC="mpiifort" FCFLAGS="-O3 -xSSE4.2" SCALAPACK_LDFLAGS="$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=1 --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-sse --enable-sse-assembly --disable-avx --disable-avx2 || { cat config.log; exit 1; }
     - make -j 8
     - make check TASKS=2 TEST_FLAGS="150 150 16" || { cat test-suite.log; exit 1; }
     - grep -i "Expected %stop" test-suite.log && exit 1 || true ;
@@ -983,11 +983,11 @@ intel-intel-mpi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocki
 
 
 # intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize
-intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx-no-address-sanitize-jobs:
+intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize-jobs:
   tags:
     - avx
   script:
-    - ./configure  CC="mpiicc" CFLAGS="-O3 -mavx" FC="mpiifort" FCFLAGS="-O3 -mavx" SCALAPACK_LDFLAGS="$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx --disable-avx2 || { cat config.log; exit 1; }
+    - ./configure  CC="mpiicc" CFLAGS="-O3 -xAVX" FC="mpiifort" FCFLAGS="-O3 -xAVX" SCALAPACK_LDFLAGS="$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx --disable-avx2 || { cat config.log; exit 1; }
     - make -j 8
     - make check TASKS=2 TEST_FLAGS="150 150 16" || { cat test-suite.log; exit 1; }
     - grep -i "Expected %stop" test-suite.log && exit 1 || true ;
@@ -995,7 +995,7 @@ intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
 
 
 # intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize
-intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx2-no-address-sanitize-jobs:
+intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize-jobs:
   tags:
     - avx2
   script:
@@ -1007,7 +1007,7 @@ intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
-    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpiicc\" CFLAGS=\"-O3 -march=core-avx2\" FC=\"mpiifort\" FCFLAGS=\"-O3 -march=core-avx2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
+    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpiicc\" CFLAGS=\"-O3 -xAVX2\" FC=\"mpiifort\" FCFLAGS=\"-O3 -xAVX2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
     - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
     - sleep 10
@@ -1016,7 +1016,7 @@ intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
 
 
 # intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize
-intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx512-no-address-sanitize-jobs:
+intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize-jobs:
   tags:
     - avx512
   script:
@@ -1037,7 +1037,7 @@ intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
 
 
 # intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-knl-no-address-sanitize
-intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_knl-no-address-sanitize-jobs:
+intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-knl-no-address-sanitize-jobs:
   tags:
     - knl
   script:
@@ -1049,7 +1049,7 @@ intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
-    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpiicc\" CFLAGS=\"-O3 -mtune=knl -xMIC-AVX512\" FC=\"mpiifort\" FCFLAGS=\"-O3 -mtune=knl -xMIC-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
+    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"mpiicc\" CFLAGS=\"-O3 -xMIC-AVX512\" FC=\"mpiifort\" FCFLAGS=\"-O3 -xMIC-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
     - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
     - sleep 10
@@ -1058,11 +1058,11 @@ intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
 
 
 # intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize
-intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_sse-no-address-sanitize-jobs:
+intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize-jobs:
   tags:
     - sse
   script:
-    - ./configure  CC="mpiicc" CFLAGS="-O3 -msse4.2" FC="mpiifort" FCFLAGS="-O3 -msse4.2" SCALAPACK_LDFLAGS="$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-sse --enable-sse-assembly --disable-avx --disable-avx2 || { cat config.log; exit 1; }
+    - ./configure  CC="mpiicc" CFLAGS="-O3 -xSSE4.2" FC="mpiifort" FCFLAGS="-O3 -xSSE4.2" SCALAPACK_LDFLAGS="$MKL_INTEL_SCALAPACK_LDFLAGS_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_INTEL_SCALAPACK_FCFLAGS_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=1 --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-sse --enable-sse-assembly --disable-avx --disable-avx2 || { cat config.log; exit 1; }
     - make -j 8
     - make check TASKS=2 TEST_FLAGS="150 150 16" || { cat test-suite.log; exit 1; }
     - grep -i "Expected %stop" test-suite.log && exit 1 || true ;
@@ -1070,11 +1070,11 @@ intel-intel-mpi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocki
 
 
 # intel-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize
-intel-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx-no-address-sanitize-jobs:
+intel-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize-jobs:
   tags:
     - avx
   script:
-    - ./configure  CC="icc" CFLAGS="-O3 -mavx" FC="ifort" FCFLAGS="-O3 -mavx" SCALAPACK_LDFLAGS="$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx --disable-avx2 || { cat config.log; exit 1; }
+    - ./configure  CC="icc" CFLAGS="-O3 -xAVX" FC="ifort" FCFLAGS="-O3 -xAVX" SCALAPACK_LDFLAGS="$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx --disable-avx2 || { cat config.log; exit 1; }
     - make -j 8
     - make check TASKS=2 TEST_FLAGS="150 150 16" || { cat test-suite.log; exit 1; }
     - grep -i "Expected %stop" test-suite.log && exit 1 || true ;
@@ -1082,7 +1082,7 @@ intel-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-bloc
 
 
 # intel-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize
-intel-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx2-no-address-sanitize-jobs:
+intel-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize-jobs:
   tags:
     - avx2
   script:
@@ -1094,7 +1094,7 @@ intel-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-bloc
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
-    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"icc\" CFLAGS=\"-O3 -march=core-avx2\" FC=\"ifort\" FCFLAGS=\"-O3 -march=core-avx2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
+    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"icc\" CFLAGS=\"-O3 -xAVX2\" FC=\"ifort\" FCFLAGS=\"-O3 -xAVX2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
     - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
     - sleep 10
@@ -1103,7 +1103,7 @@ intel-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-bloc
 
 
 # intel-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize
-intel-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx512-no-address-sanitize-jobs:
+intel-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize-jobs:
   tags:
     - avx512
   script:
@@ -1124,11 +1124,11 @@ intel-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-bloc
 
 
 # intel-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize
-intel-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_sse-no-address-sanitize-jobs:
+intel-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize-jobs:
   tags:
     - sse
   script:
-    - ./configure  CC="icc" CFLAGS="-O3 -msse4.2" FC="ifort" FCFLAGS="-O3 -msse4.2" SCALAPACK_LDFLAGS="$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-sse --enable-sse-assembly --disable-avx --disable-avx2 || { cat config.log; exit 1; }
+    - ./configure  CC="icc" CFLAGS="-O3 -xSSE4.2" FC="ifort" FCFLAGS="-O3 -xSSE4.2" SCALAPACK_LDFLAGS="$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --disable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-sse --enable-sse-assembly --disable-avx --disable-avx2 || { cat config.log; exit 1; }
     - make -j 8
     - make check TASKS=2 TEST_FLAGS="150 150 16" || { cat test-suite.log; exit 1; }
     - grep -i "Expected %stop" test-suite.log && exit 1 || true ;
@@ -1136,11 +1136,11 @@ intel-intel-nompi-noopenmp-double-precision-no-assumed-size-no-band-to-full-bloc
 
 
 # intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize
-intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx-no-address-sanitize-jobs:
+intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx-no-address-sanitize-jobs:
   tags:
     - avx
   script:
-    - ./configure  CC="icc" CFLAGS="-O3 -mavx" FC="ifort" FCFLAGS="-O3 -mavx" SCALAPACK_LDFLAGS="$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx --disable-avx2 || { cat config.log; exit 1; }
+    - ./configure  CC="icc" CFLAGS="-O3 -xAVX" FC="ifort" FCFLAGS="-O3 -xAVX" SCALAPACK_LDFLAGS="$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx --disable-avx2 || { cat config.log; exit 1; }
     - make -j 8
     - make check TASKS=2 TEST_FLAGS="150 150 16" || { cat test-suite.log; exit 1; }
     - grep -i "Expected %stop" test-suite.log && exit 1 || true ;
@@ -1148,7 +1148,7 @@ intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-bloc
 
 
 # intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize
-intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx2-no-address-sanitize-jobs:
+intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx2-no-address-sanitize-jobs:
   tags:
     - avx2
   script:
@@ -1160,7 +1160,7 @@ intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-bloc
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
-    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"icc\" CFLAGS=\"-O3 -march=core-avx2\" FC=\"ifort\" FCFLAGS=\"-O3 -march=core-avx2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
+    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"icc\" CFLAGS=\"-O3 -xAVX2\" FC=\"ifort\" FCFLAGS=\"-O3 -xAVX2\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx2"
     - sleep 10
     - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
     - sleep 10
@@ -1169,7 +1169,7 @@ intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-bloc
 
 
 # intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize
-intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_avx512-no-address-sanitize-jobs:
+intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-avx512-no-address-sanitize-jobs:
   tags:
     - avx512
   script:
@@ -1190,7 +1190,7 @@ intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-bloc
 
 
 # intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-knl-no-address-sanitize
-intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_knl-no-address-sanitize-jobs:
+intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-knl-no-address-sanitize-jobs:
   tags:
     - knl
   script:
@@ -1202,7 +1202,7 @@ intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-bloc
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl01" ]; then export SLURMHOST=dvl01 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - if [ "$CI_RUNNER_DESCRIPTION" = "appdev-dvl02" ]; then export SLURMHOST=dvl02 && export SLURMPARTITION=dvl &&                         export CONFIGURETIME=5 && export BUILDTIME=20 && export RUNTIME=20; fi
     - echo "The tasks will be submitted to SLURM PARTITION " $SLURMPARTITION "on host " $SLURMHOST
-    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"icc\" CFLAGS=\"-O3 -mtune=knl -xMIC-AVX512\" FC=\"ifort\" FCFLAGS=\"-O3 -mtune=knl -xMIC-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
+    - srun -n 1 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$CONFIGURETIME /scratch/elpa/bin/configure_elpa.sh " CC=\"icc\" CFLAGS=\"-O3 -xMIC-AVX512\" FC=\"ifort\" FCFLAGS=\"-O3 -xMIC-AVX512\" SCALAPACK_LDFLAGS=\"\$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP \" SCALAPACK_FCFLAGS=\"\$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP \" --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-avx512"
     - sleep 10
     - srun -n 1 -c 8 --partition=$SLURMPARTITION --nodelist=$SLURMHOST --time=$BUILDTIME /scratch/elpa/bin/build_elpa.sh
     - sleep 10
@@ -1211,11 +1211,11 @@ intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-bloc
 
 
 # intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize
-intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage_sse-no-address-sanitize-jobs:
+intel-intel-nompi-noopenmp-single-precision-no-assumed-size-no-band-to-full-blocking-no-gpu-no-coverage-sse-no-address-sanitize-jobs:
   tags:
     - sse
   script:
-    - ./configure  CC="icc" CFLAGS="-O3 -msse4.2" FC="ifort" FCFLAGS="-O3 -msse4.2" SCALAPACK_LDFLAGS="$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-sse --enable-sse-assembly --disable-avx --disable-avx2 || { cat config.log; exit 1; }
+    - ./configure  CC="icc" CFLAGS="-O3 -xSSE4.2" FC="ifort" FCFLAGS="-O3 -xSSE4.2" SCALAPACK_LDFLAGS="$MKL_INTEL_SCALAPACK_LDFLAGS_NO_MPI_NO_OMP " SCALAPACK_FCFLAGS="$MKL_INTEL_SCALAPACK_FCFLAGS_NO_MPI_NO_OMP " --enable-option-checking=fatal --with-mpi=0 --disable-mpi-module --disable-openmp --enable-single-precision --disable-assumed-size --disable-band-to-full-blocking --disable-gpu --enable-sse --enable-sse-assembly --disable-avx --disable-avx2 || { cat config.log; exit 1; }
     - make -j 8
     - make check TASKS=2 TEST_FLAGS="150 150 16" || { cat test-suite.log; exit 1; }
     - grep -i "Expected %stop" test-suite.log && exit 1 || true ;
