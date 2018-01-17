@@ -1506,7 +1506,7 @@ module elpa_impl
     !>                                              even if only a part of the eigenvalues is needed.
     !>
     !>  \param error                                integer, optional: returns an error code, which can be queried with elpa_strerr
-    subroutine elpa_generalized_eigenvectors_d(self, a, b, ev, q, sc_desc, error)
+    subroutine elpa_generalized_eigenvectors_d(self, a, b, ev, q, sc_desc, is_already_decomposed, error)
       use elpa2_impl
       use elpa1_impl
       use elpa_utilities, only : error_unit
@@ -1521,13 +1521,14 @@ module elpa_impl
 #endif
       real(kind=c_double) :: ev(self%na)
       integer             :: sc_desc(SC_DESC_LEN)
+      logical             :: is_already_decomposed
 
       integer, optional   :: error
       integer             :: error_l
       integer(kind=c_int) :: solver
       logical             :: success_l
 
-      call self%elpa_transform_generalized_d(a, b, sc_desc, error_l)
+      call self%elpa_transform_generalized_d(a, b, sc_desc, is_already_decomposed, error_l)
       if (present(error)) then
           error = error_l
       else if (error_l .ne. ELPA_OK) then
@@ -1580,7 +1581,7 @@ module elpa_impl
       call c_f_pointer(q_p, q, [self%local_nrows, self%local_ncols])
       call c_f_pointer(sc_desc_p, sc_desc, [SC_DESC_LEN])
 
-      call elpa_generalized_eigenvectors_d(self, a, b, ev, q, sc_desc, error)
+      call elpa_generalized_eigenvectors_d(self, a, b, ev, q, sc_desc, .false., error)
     end subroutine
 
 
@@ -1609,7 +1610,7 @@ module elpa_impl
     !>                                              even if only a part of the eigenvalues is needed.
     !>
     !>  \param error                                integer, optional: returns an error code, which can be queried with elpa_strerr
-    subroutine elpa_generalized_eigenvectors_f(self, a, b, ev, q, sc_desc, error)
+    subroutine elpa_generalized_eigenvectors_f(self, a, b, ev, q, sc_desc, is_already_decomposed, error)
       use elpa2_impl
       use elpa1_impl
       use elpa_utilities, only : error_unit
@@ -1625,12 +1626,13 @@ module elpa_impl
       integer             :: sc_desc(SC_DESC_LEN)
 
       integer, optional   :: error
+      logical             :: is_already_decomposed
       integer             :: error_l
       integer(kind=c_int) :: solver
 #ifdef WANT_SINGLE_PRECISION_REAL
       logical             :: success_l
 
-      call self%elpa_transform_generalized_f(a, b, sc_desc, error_l)
+      call self%elpa_transform_generalized_f(a, b, sc_desc, is_already_decomposed, error_l)
       if (present(error)) then
           error = error_l
       else if (error_l .ne. ELPA_OK) then
@@ -1688,7 +1690,7 @@ module elpa_impl
       call c_f_pointer(q_p, q, [self%local_nrows, self%local_ncols])
       call c_f_pointer(sc_desc_p, sc_desc, [SC_DESC_LEN])
 
-      call elpa_generalized_eigenvectors_f(self, a, b, ev, q, sc_desc, error)
+      call elpa_generalized_eigenvectors_f(self, a, b, ev, q, sc_desc, .false., error)
     end subroutine
 
 
@@ -1717,7 +1719,7 @@ module elpa_impl
     !>                                              even if only a part of the eigenvalues is needed.
     !>
     !>  \param error                                integer, optional: returns an error code, which can be queried with elpa_strerr
-    subroutine elpa_generalized_eigenvectors_dc(self, a, b, ev, q, sc_desc, error)
+    subroutine elpa_generalized_eigenvectors_dc(self, a, b, ev, q, sc_desc, is_already_decomposed, error)
       use elpa2_impl
       use elpa1_impl
       use elpa_utilities, only : error_unit
@@ -1734,11 +1736,12 @@ module elpa_impl
       integer                        :: sc_desc(SC_DESC_LEN)
 
       integer, optional              :: error
+      logical             :: is_already_decomposed
       integer                        :: error_l
       integer(kind=c_int)            :: solver
       logical                        :: success_l
 
-      call self%elpa_transform_generalized_dc(a, b, sc_desc, error_l)
+      call self%elpa_transform_generalized_dc(a, b, sc_desc, is_already_decomposed, error_l)
       if (present(error)) then
           error = error_l
       else if (error_l .ne. ELPA_OK) then
@@ -1793,7 +1796,7 @@ module elpa_impl
       call c_f_pointer(q_p, q, [self%local_nrows, self%local_ncols])
       call c_f_pointer(sc_desc_p, sc_desc, [SC_DESC_LEN])
 
-      call elpa_generalized_eigenvectors_dc(self, a, b, ev, q, sc_desc, error)
+      call elpa_generalized_eigenvectors_dc(self, a, b, ev, q, sc_desc, .false., error)
     end subroutine
 
 
@@ -1822,7 +1825,7 @@ module elpa_impl
     !>                                              even if only a part of the eigenvalues is needed.
     !>
     !>  \param error                                integer, optional: returns an error code, which can be queried with elpa_strerr
-    subroutine elpa_generalized_eigenvectors_fc(self, a, b, ev, q, sc_desc, error)
+    subroutine elpa_generalized_eigenvectors_fc(self, a, b, ev, q, sc_desc, is_already_decomposed, error)
       use elpa2_impl
       use elpa1_impl
       use elpa_utilities, only : error_unit
@@ -1839,12 +1842,13 @@ module elpa_impl
       integer                       :: sc_desc(SC_DESC_LEN)
 
       integer, optional             :: error
+      logical             :: is_already_decomposed
       integer                       :: error_l
       integer(kind=c_int)           :: solver
 #ifdef WANT_SINGLE_PRECISION_COMPLEX
       logical                       :: success_l
 
-      call self%elpa_transform_generalized_fc(a, b, sc_desc, error_l)
+      call self%elpa_transform_generalized_fc(a, b, sc_desc, is_already_decomposed, error_l)
       if (present(error)) then
           error = error_l
       else if (error_l .ne. ELPA_OK) then
@@ -1903,7 +1907,7 @@ module elpa_impl
       call c_f_pointer(q_p, q, [self%local_nrows, self%local_ncols])
       call c_f_pointer(sc_desc_p, sc_desc, [SC_DESC_LEN])
 
-      call elpa_generalized_eigenvectors_fc(self, a, b, ev, q, sc_desc, error)
+      call elpa_generalized_eigenvectors_fc(self, a, b, ev, q, sc_desc, .false., error)
     end subroutine
 
 
